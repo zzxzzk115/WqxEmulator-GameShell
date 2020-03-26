@@ -3,6 +3,7 @@
 > NC1020 Emulator for GameShell
 
 感谢 孤獨愛你 提供的png图标，使用了nw.js来运行，原项目地址：https://github.com/hackwaly/jswqx
+
 Thanks for 孤獨愛你's supporting the .png logo file. This project uses `nw.js` to launch the game. The Origin project url: https://github.com/hackwaly/jswqx
 
 ## 如何游玩(How to Play)
