@@ -1,5 +1,6 @@
 # WqxEmulator-GameShell
 > 适配GameShell的文曲星NC1020模拟器
+
 > NC1020 Emulator for GameShell
 
 感谢 孤獨愛你 提供的png图标，使用了nw.js来运行，原项目地址：https://github.com/hackwaly/jswqx
