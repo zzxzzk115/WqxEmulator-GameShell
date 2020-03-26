@@ -1,0 +1,14 @@
+{
+    "main": "index.html",
+    "name": "wen_qu_xing_emulator",
+    "window": {
+        "width": 320,
+        "height": 240,
+        "max_width": 320,
+        "max_height": 240,
+        "resizable": false,
+        "fullscreen": true,
+        "frame": false,
+        "transparent": true
+    }
+} 

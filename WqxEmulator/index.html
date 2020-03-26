@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>文曲星模拟器_LazyV修改适配GameShell</title>
+    <script src="tools/jquery.min.js"></script>
+    <script src="src/m65c02.js"></script>
+    <script src="src/wqx.js"></script>
+    <script src="src/keyinput.js"></script>
+    <style>
+        /* @font-face {
+            font-family: 'pixel';
+            src: url('fonts/方正像素12.ttf');
+        } */
+
+        html,body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}
+        #wqx {
+            width: 320px;
+        }
+        #lcd {
+            width: 320px;
+            height: 160px;
+            background-color: #d6d6d6;
+        }
+        #container {
+            width: 320px;
+            height: 80px;
+            background-color: #d6d6d6;
+        }
+        #menu {
+            margin-left: 3px;
+            margin-top: 1px;
+        }
+
+        .virtual_key {
+            width: 25px;
+            height: 14px;
+            text-align: center;
+            border-radius: 1px;
+            display: inline-block;
+            background-color: rgb(206, 206, 206);
+            border: 1px solid rgb(82, 82, 82);
+            /* margin-right: 1px; */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            cursor: pointer;
+        }
+
+        .virtual_key_label {
+            /* font-family: pixel; */
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: xx-small;
+            line-height: 14px;
+            color: black;
+            text-align: center;
+            position: absolute;
+            width: 26px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+<div id="wqx">
+    <div id="lcd">
+    </div>
+    <div id="container">
+        <div id="menu" style="visibility: hidden;">
+            <div class="virtual_key" data-key="F8">
+                <div class="virtual_key_label">词典</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F9">
+                <div class="virtual_key_label">名片</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F10">
+                <div class="virtual_key_label">计算</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F6">
+                <div class="virtual_key_label">游戏</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F5">
+                <div class="virtual_key_label">时间</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F11">
+                <div class="virtual_key_label">网络</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F1">
+                <div class="virtual_key_label">F1</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F2">
+                <div class="virtual_key_label">F2</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F3">
+                <div class="virtual_key_label">F3</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F4">
+                <div class="virtual_key_label">F4</div>
+            </div>
+    
+            <div class="virtual_key" data-key="Q">
+                <div class="virtual_key_label">Q</div>
+            </div>
+    
+            <div class="virtual_key" data-key="W">
+                <div class="virtual_key_label">W</div>
+            </div>
+    
+            <div class="virtual_key" data-key="E">
+                <div class="virtual_key_label">E</div>
+            </div>
+    
+            <div class="virtual_key" data-key="R">
+                <div class="virtual_key_label">R</div>
+            </div>
+    
+            <div class="virtual_key" data-key="T">
+                <div class="virtual_key_label">T</div>
+            </div>
+    
+            <div class="virtual_key" data-key="Y">
+                <div class="virtual_key_label">Y</div>
+            </div>
+    
+            <div class="virtual_key" data-key="U">
+                <div class="virtual_key_label">U</div>
+            </div>
+    
+            <div class="virtual_key" data-key="I">
+                <div class="virtual_key_label">I</div>
+            </div>
+    
+            <div class="virtual_key" data-key="O">
+                <div class="virtual_key_label">O</div>
+            </div>
+    
+            <div class="virtual_key" data-key="P">
+                <div class="virtual_key_label">P</div>
+            </div>
+    
+            <div class="virtual_key" data-key="A">
+                <div class="virtual_key_label">A</div>
+            </div>
+    
+            <div class="virtual_key" data-key="S">
+                <div class="virtual_key_label">S</div>
+            </div>
+            
+            <div class="virtual_key" data-key="D">
+                <div class="virtual_key_label">D</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F">
+                <div class="virtual_key_label">F</div>
+            </div>
+    
+            <div class="virtual_key" data-key="G">
+                <div class="virtual_key_label">G</div>
+            </div>
+    
+            <div class="virtual_key" data-key="H">
+                <div class="virtual_key_label">H</div>
+            </div>
+    
+            <div class="virtual_key" data-key="J">
+                <div class="virtual_key_label">J</div>
+            </div>
+    
+            <div class="virtual_key" data-key="K">
+                <div class="virtual_key_label">K</div>
+            </div>
+    
+            <div class="virtual_key" data-key="L">
+                <div class="virtual_key_label">L</div>
+            </div>
+    
+            <div class="virtual_key" data-key="Tab">
+                <div class="virtual_key_label">帮助</div>
+            </div>
+    
+            <div class="virtual_key" data-key="Z">
+                <div class="virtual_key_label">Z</div>
+            </div>
+    
+            <div class="virtual_key" data-key="X">
+                <div class="virtual_key_label">X</div>
+            </div>
+    
+            <div class="virtual_key" data-key="C">
+                <div class="virtual_key_label">C</div>
+            </div>
+    
+            <div class="virtual_key" data-key="V">
+                <div class="virtual_key_label">V</div>
+            </div>
+    
+            <div class="virtual_key" data-key="B">
+                <div class="virtual_key_label">B</div>
+            </div>
+    
+            <div class="virtual_key" data-key="N">
+                <div class="virtual_key_label">N</div>
+            </div>
+    
+            <div class="virtual_key" data-key="M">
+                <div class="virtual_key_label">M</div>
+            </div>
+    
+            <div class="virtual_key" data-key="PageUp">
+                <div class="virtual_key_label">PUp</div>
+            </div>
+    
+            <div class="virtual_key" data-key="PageDown">
+                <div class="virtual_key_label">PDn</div>
+            </div>
+    
+            <div class="virtual_key" data-key="F12">
+                <div class="virtual_key_label">电源</div>
+            </div>
+
+        </div>
+    </div>
+    <div style="visibility: hidden;">
+        <button id="toogle_keypad">软键盘 开/关</button>
+        <label><input tabindex="0" id="input" type="text" placeholder="键盘输入" style="ime-mode: disabled;"/></label>
+    </div>
+</div>
+<script>
+    var lcdDiv = document.getElementById('lcd')
+    var wqx = new Wqx(lcdDiv);
+    var keyInput = new WqxKeyInput(wqx, document.getElementById('input'));
+    var keyboardVisible = false;
+    var currentChooseIndex = 0;
+    var keys = document.getElementsByClassName("virtual_key");
+
+    $(document).keydown(function(event) {
+        switch (event.keyCode) {
+　　　　 //ESC(GameShell's Menu)->Exit Emulator
+        case 27:
+            nw.App.closeAllWindows();
+            break;
+
+        //Space(GameShell's Select)->Show Keyboard
+        case 32:
+            if(!keyboardVisible)
+            {
+                document.getElementById("menu").style = "visibility : visible";
+                keyboardVisible = true;
+                currentChooseIndex = 0;
+                keys[currentChooseIndex].style = "background-color:grey";
+            }
+            else
+            {
+                keys[currentChooseIndex].style = "background-color: rgb(206, 206, 206)";
+                document.getElementById("menu").style = "visibility : hidden";
+                keyboardVisible = false;
+            }
+            break;
+
+        //left
+        case 37:
+            if(keyboardVisible)
+            {
+                
+                var currentKey = keys[currentChooseIndex];
+                currentKey.style = "background-color: rgb(206, 206, 206)";
+                currentChooseIndex--;
+                if(currentChooseIndex < 0)
+                    currentChooseIndex = keys.length-1;
+                var choosingKey = keys[currentChooseIndex];
+                choosingKey.style="background-color:grey";
+            }
+            else
+            {
+                keyInput.mkeyDown(event.keyCode);
+            }
+            break;
+
+        //up
+        case 38:
+            if(keyboardVisible)
+            {
+                
+                var currentKey = keys[currentChooseIndex];
+                currentKey.style = "background-color: rgb(206, 206, 206)";
+                currentChooseIndex-=10;
+                if(currentChooseIndex < 0)
+                    currentChooseIndex = keys.length + currentChooseIndex;
+                var choosingKey = keys[currentChooseIndex];
+                choosingKey.style="background-color:grey";
+            }
+            else
+            {
+                keyInput.mkeyDown(event.keyCode);
+            }
+            break;
+
+        //right
+        case 39:
+            if(keyboardVisible)
+            {
+                
+                var currentKey = keys[currentChooseIndex];
+                currentKey.style = "background-color: rgb(206, 206, 206)";
+                currentChooseIndex++;
+                if(currentChooseIndex >= keys.length)
+                    currentChooseIndex = 0
+                var choosingKey = keys[currentChooseIndex];
+                choosingKey.style="background-color:grey";
+            }
+            else
+            {
+                keyInput.mkeyDown(event.keyCode);
+            }
+            break;
+
+        //down
+        case 40:
+            if(keyboardVisible)
+            {
+                var currentKey = keys[currentChooseIndex];
+                currentKey.style = "background-color: rgb(206, 206, 206)";
+                currentChooseIndex+=10;
+                if(currentChooseIndex >= keys.length)
+                    currentChooseIndex = currentChooseIndex - keys.length;
+                var choosingKey = keys[currentChooseIndex];
+                choosingKey.style="background-color:grey";
+            }
+            else
+            {
+                keyInput.mkeyDown(event.keyCode);
+            }
+            break;
+
+        //ENTER(GameShell's Start)->Esc
+        case 13:
+            keyInput.keyDown('CapsLock');
+            break;
+
+        //K(GameShell's A)->ENTER
+        case 75:
+            if(keyboardVisible)
+            {
+                var currentKey = keys[currentChooseIndex];
+                var data_key = currentKey.getAttribute("data-key");
+                console.log(data_key);
+                keyInput.keyDown(data_key);
+            }
+            else
+            {
+                keyInput.keyDown('Enter');
+            }
+            break;
+        //J(GameShell's B)->ESC
+        case 74:
+            keyInput.keyDown('Esc');
+            break;
+
+        default:
+            keyInput.mkeyDown(event.keyCode);
+            break;
+        }
+    });
+
+    $(document).keyup(function(event) {
+        switch (event.keyCode) {
+　　　　　//ESC ASCII 27
+        case 27:
+            nw.App.closeAllWindows();
+            break;
+
+        //ENTER(GameShell's Start)->F11
+        case 13:
+            keyInput.keyUp('CapsLock');
+            break;
+
+        //K(GameShell's A)->ENTER
+        case 75:
+            if(keyboardVisible)
+            {
+                var currentKey = keys[currentChooseIndex];
+                var data_key = currentKey.getAttribute("data-key");
+                console.log(data_key);
+                keyInput.keyUp(data_key);
+            }
+            else
+            {
+                keyInput.keyUp('Enter');
+            }
+            break;
+        //J(GameShell's B)->ESC
+        case 74:
+            keyInput.keyUp('Esc');
+            break;
+
+        default:
+            keyInput.mkeyUp(event.keyCode);
+            break;
+        }
+    });
+    var romLoaded = false;
+    var norLoaded = false;
+    var xhrRom = null;
+    function check(){
+        if (romLoaded && norLoaded) {
+        }
+    }
+    lcdDiv.addEventListener('dragover', function (evt){
+        evt.preventDefault();
+    }, false);
+    lcdDiv.addEventListener('drop', function (evt){
+        var file;
+        try {
+            file = evt.dataTransfer.files[0];
+        } catch(ex){}
+        var fileReader = new FileReader();
+        fileReader.addEventListener('loadend', function (evt){
+            if (!xhrRom) {
+                xhrRom.abort();
+                xhrRom = null;
+            }
+            wqx.loadBROM(fileReader.result);
+            romLoaded = true;
+            check();
+        }, false);
+        fileReader.readAsArrayBuffer(file);
+        evt.preventDefault();
+    }, false);
+
+    function loadDemo(){
+        var xhrNor = new XMLHttpRequest();
+        xhrNor.open('GET', './rom/nc1020.fls', true);
+        xhrNor.responseType = 'arraybuffer';
+        xhrNor.addEventListener('loadend', function (){
+            wqx.loadNorFlash(xhrNor.response);
+            norLoaded = true;
+            check();
+        }, false);
+        xhrNor.send();
+        xhrRom = new XMLHttpRequest();
+        xhrRom.addEventListener('progress', function (evt){
+        }, false);
+        xhrRom.addEventListener('loadend', function (){
+            wqx.loadBROM(xhrRom.response);
+            romLoaded = true;
+            check();
+            run();
+        }, false);
+        xhrRom.open('GET', './rom/obj_lu.bin', true);
+        xhrRom.responseType = 'arraybuffer';
+        xhrRom.send();
+
+    }
+
+    function run(){
+        wqx.run();
+    }
+    function stop(){
+        wqx.stop();
+
+    }
+    function reset(){
+        wqx.reset();
+    }
+    window.onload = function()
+    {
+        loadDemo();
+    }
+</script>
+</body>
+</html>
