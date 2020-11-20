@@ -12,6 +12,6 @@ Thanks for 孤獨愛你's supporting the .png logo file. This project uses `nw.j
 当然，如果你的用户名修改过，不叫cpi，你可以在`WqxEmulator`文件夹中编辑`WqxEmulator.sh`的启动脚本，将`\home\cpi\apps\Menu`中的cpi改成你的用户名即可。
 
 Copy the folder `WqxEmulator` and paste it at `\home\cpi\apps\Menu` in your GameShell.Then refresh the ui menu and open it.
-Of course if you changed your system user name which is not `cpi`, you could edit `WqxEmulator.sh` in the folder `WqxEmulator` and replace the `cpi` to your own user name where it is `\home\cpi\apps\Menu`.
+Of course if you changed your system user name which was not `cpi`, you could edit `WqxEmulator.sh` in the folder `WqxEmulator` and replace the `cpi` to your own user name where it is `\home\cpi\apps\Menu`.
 
 
