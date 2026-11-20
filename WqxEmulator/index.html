@@ -34,19 +34,34 @@
             border-top: 1px solid #14161b;
             position: relative;
         }
-        /* shown while the keyboard is closed (the D-pad then drives the NC1020 directly) */
+        /* closed keyboard: an NC1020-style nameplate (our own pixel star, not the brand's logo) and a hint, centred */
         #hint {
             position: absolute;
             left: 0;
-            right: 0;
-            top: 33px;
-            text-align: center;
+            top: 0;
+            width: 320px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             font-family: Zpix, Arial, Helvetica, sans-serif;
             font-size: 12px;
-            line-height: 14px;
+            line-height: 12px;
             -webkit-font-smoothing: none;
-            color: #8b9098;
         }
+        #hint .plate {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            background-color: #22252c;
+            border: 1px solid #0d0e12;
+            box-shadow: inset 1px 1px 0 #3c404a, inset -1px -1px 0 #17191e;
+        }
+        #hint .plate svg { display: block; margin-right: 5px; }
+        #hint .brand { color: #e9ebee; letter-spacing: 2px; }
+        #hint .model { color: #f2b134; margin-left: 4px; }
+        #hint .tip { margin-top: 7px; color: #8b9098; }
         #menu[style*="visible"] + #hint { display: none; }
         /* keys packed in rows (no inline gaps), 2px between rows */
         #menu {
@@ -260,7 +275,10 @@
             </div>
 
         </div>
-        <div id="hint">按 SELECT 打开键盘</div>
+        <div id="hint">
+            <div class="plate"><svg width="9" height="9" viewBox="0 0 9 9" shape-rendering="crispEdges" fill="#f2b134" aria-hidden="true"><rect x="4" y="0" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="3" y="2" width="3" height="1"/><rect x="0" y="3" width="9" height="1"/><rect x="1" y="4" width="7" height="1"/><rect x="2" y="5" width="5" height="1"/><rect x="2" y="6" width="2" height="1"/><rect x="5" y="6" width="2" height="1"/><rect x="1" y="7" width="2" height="1"/><rect x="6" y="7" width="2" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/></svg><span class="brand">文曲星</span><span class="model">NC1020</span></div>
+            <div class="tip">按 SELECT 打开键盘</div>
+        </div>
     </div>
     <div style="visibility: hidden;">
         <button id="toogle_keypad">软键盘 开/关</button>
