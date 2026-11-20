@@ -28,9 +28,15 @@ SSH 连上 GameShell 后执行：
 bash <(curl -sL https://raw.githubusercontent.com/zzxzzk115/WqxEmulator-GameShell/master/install.sh)
 ```
 
-脚本会下载本仓库，把 `WqxEmulator` 装到 `~/apps/Menu`（启动脚本里的 `/home/cpi` 会换成你自己的用户目录），再从 Zpix 官方 Releases 下载字体。装完刷新菜单，桌面上就会出现图标。启动脚本使用 `~/apps/nwjs-sdk-v0.27.6-linux-arm` 里的 NW.js。
+GitHub 访问不稳定（比如在中国大陆）时，改用 jsDelivr 获取这个脚本：
 
-GitHub 访问慢的话，可以在命令前加上你自己的 GitHub 代理前缀：`GH_PROXY=https://你的代理/ bash <(curl -sL …)`。
+```bash
+bash <(curl -sL https://cdn.jsdelivr.net/gh/zzxzzk115/WqxEmulator-GameShell@master/install.sh)
+```
+
+脚本会先测一下直连 GitHub 和几个公共 GitHub 代理（ghfast.top、gh-proxy.com、ghproxy.net、gh.ddlc.top）的速度，用最快的那个下载。然后把 `WqxEmulator` 装到 `~/apps/Menu`（启动脚本里的 `/home/cpi` 会换成你自己的用户目录），再从 Zpix 官方 Releases 下载字体。装完刷新菜单，桌面上就会出现图标。启动脚本使用 `~/apps/nwjs-sdk-v0.27.6-linux-arm` 里的 NW.js。
+
+想自己指定下载方式，可以设置 `GH_PROXY`（留空表示直连 GitHub）：`GH_PROXY=https://ghfast.top/ bash <(curl -sL …)`。
 
 ## 手动安装
 
